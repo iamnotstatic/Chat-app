@@ -49,11 +49,11 @@ const getUserInRoom = room => {
 };
 
 const addRoom = (room) => {
+
+  const roomData = { room };
   rooms.push(room);
 
-  return {
-    room
-  };
+  return { roomData };
 
 }
 

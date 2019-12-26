@@ -1,4 +1,4 @@
-const sockect = io();
+const socket = io();
 
 // Elements
 const $messageForm = document.querySelector('#message-form');
@@ -6,7 +6,6 @@ const $messageFormInput = $messageForm.querySelector('input');
 const $messageFormButton = $messageForm.querySelector('button');
 const $getLocationButton = document.querySelector('#send-location');
 const $messages = document.querySelector('#messages');
-const $rooms = document.querySelector('#rooms');
 
 //Templates
 const messageTemplate = document.querySelector('#message-template').innerHTML;
@@ -43,7 +42,7 @@ const autoscroll = () => {
   }
 };
 
-sockect.on('message', message => {
+socket.on('message', message => {
   const html = Mustache.render(messageTemplate, {
     username: message.username,
     message: message.text,
@@ -54,7 +53,7 @@ sockect.on('message', message => {
   autoscroll();
 });
 
-sockect.on('locationMessage', message => {
+socket.on('locationMessage', message => {
   const html = Mustache.render(locationMessageTemplate, {
     username: message.username,
     url: message.url,
@@ -64,7 +63,7 @@ sockect.on('locationMessage', message => {
   autoscroll();
 });
 
-sockect.on('roomData', ({ room, users }) => {
+socket.on('roomData', ({ room, users }) => {
   const html = Mustache.render(sidebarTemplate, {
     room,
     users
@@ -73,6 +72,7 @@ sockect.on('roomData', ({ room, users }) => {
   document.querySelector('#sidebar').innerHTML = html;
 });
 
+
 $messageForm.addEventListener('submit', e => {
   e.preventDefault();
 
@@ -80,7 +80,7 @@ $messageForm.addEventListener('submit', e => {
   const text = e.target.elements.message;
   const message = text.value;
 
-  sockect.emit('sendMessage', message, error => {
+  socket.emit('sendMessage', message, error => {
     $messageFormButton.removeAttribute('disabled');
     $messageFormInput.value = '';
     $messageFormInput.focus();
@@ -99,7 +99,7 @@ $getLocationButton.addEventListener('click', () => {
   $getLocationButton.setAttribute('disabled', 'disabled');
 
   navigator.geolocation.getCurrentPosition(position => {
-    sockect.emit(
+    socket.emit(
       'sendLocation',
       {
         latitude: position.coords.latitude,
@@ -113,7 +113,7 @@ $getLocationButton.addEventListener('click', () => {
   });
 });
 
-sockect.emit('join', { username, room }, error => {
+socket.emit('join', { username, room }, error => {
   if (error) {
     alert(error);
     location.href = '/';

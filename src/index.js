@@ -29,8 +29,7 @@ io.on('connection', socket => {
 
   socket.on('join', (options, callback) => {
     const { error, user } = addUser({ id: socket.id, ...options });
-
-    addRoom(user.room)
+    addRoom({ room: user.room })
 
     if (error) {
       return callback(error);
@@ -88,6 +87,8 @@ io.on('connection', socket => {
       });
     }
   });
+
+  socket.emit('rooms', getRooms());
 });
 
 server.listen(port, () => {
