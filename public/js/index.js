@@ -10,9 +10,8 @@ const $roomInput = document.querySelector('#roomInput');
 const roomsTemplate = document.querySelector('#rooms-template').innerHTML;
 
 socket.on('rooms', (rooms) => {
-    const html = Mustache.render(roomsTemplate, {
-        rooms
-    })
+    const html = Mustache.render(roomsTemplate, { rooms })
+
     $rooms.innerHTML = html;
 })
 

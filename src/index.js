@@ -29,13 +29,12 @@ io.on('connection', socket => {
 
   socket.on('join', (options, callback) => {
     const { error, user } = addUser({ id: socket.id, ...options });
-    addRoom({ room: user.room })
 
     if (error) {
       return callback(error);
     }
     socket.join(user.room);
-
+    addRoom({ room: user.room })
     socket.emit('message', generateMessage('Admin', 'Welcome!'));
     socket.broadcast
       .to(user.room)
@@ -47,7 +46,6 @@ io.on('connection', socket => {
       room: user.room,
       users: getUserInRoom(user.room)
     });
-
     callback();
   });
 

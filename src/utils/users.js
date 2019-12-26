@@ -18,6 +18,7 @@ const addUser = ({ id, username, room }) => {
     return user.room === room && user.username === username;
   });
 
+
   // Validate username
   if (existingUser) {
     return {
@@ -49,18 +50,22 @@ const getUserInRoom = room => {
 };
 
 const addRoom = (room) => {
+  const value = room.room;
+  const existingRoom = rooms.find(element => element.room === value)
 
-  const roomData = { room };
+  if (existingRoom) {
+    return null
+  }
+
+  const roomData = { room }
   rooms.push(room);
-
-  return { roomData };
+  return roomData;
 
 }
 
 const getRooms = () => {
   return rooms;
 }
-
 
 
 module.exports = { addUser, removeUser, getUser, getUserInRoom, addRoom, getRooms };
