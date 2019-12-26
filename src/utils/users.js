@@ -1,4 +1,5 @@
 const users = [];
+const rooms = [];
 
 const addUser = ({ id, username, room }) => {
   //Clean Data
@@ -47,4 +48,19 @@ const getUserInRoom = room => {
   return users.filter(user => user.room === room);
 };
 
-module.exports = { addUser, removeUser, getUser, getUserInRoom };
+const addRoom = (room) => {
+  rooms.push(room);
+
+  return {
+    room
+  };
+
+}
+
+const getRooms = () => {
+  return rooms;
+}
+
+
+
+module.exports = { addUser, removeUser, getUser, getUserInRoom, addRoom, getRooms };

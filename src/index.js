@@ -11,7 +11,9 @@ const {
   addUser,
   removeUser,
   getUser,
-  getUserInRoom
+  getUserInRoom,
+  addRoom,
+  getRooms
 } = require('./utils/users');
 const app = express();
 const server = http.createServer(app);
@@ -27,6 +29,8 @@ io.on('connection', socket => {
 
   socket.on('join', (options, callback) => {
     const { error, user } = addUser({ id: socket.id, ...options });
+
+    addRoom(user.room)
 
     if (error) {
       return callback(error);
