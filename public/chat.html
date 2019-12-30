@@ -35,11 +35,11 @@
       <div class="message-input">
         <div class="wrap">
           <div class="compose">
+            <button id="send-location"><i class="fa fa-map-marker"></i></button>
             <form id="message-form">
               <input type="text" placeholder="message" name="message" required autocomplete="off" />
               <button type="submit" class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
             </form>
-            <button id="send-location"><i class="fa fa-map-marker"></i></button>
           </div>
         </div>
       </div>
@@ -60,10 +60,10 @@
   <script id="location-message-template" type="text/html">
     <ul>
       <li class="sent">
-        <p>{{username}} <br> {{message}}
+        <p><span class="text-capitalize">{{username}}</span><br> {{message}}
         </p>
-        <p>{{createdAt}}</p>
         <p><a href="{{url}}" target="_blank">My current location</a></p>
+        <p>{{createdAt}}</p>
       </li>
     </ul>
     </script>

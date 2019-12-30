@@ -85,7 +85,7 @@ $messageForm.addEventListener('submit', e => {
     $messageFormInput.value = '';
     $messageFormInput.focus();
     if (error) {
-      return console.log(error);
+      return alert(error)
     }
     console.log('Message delieved');
   });
